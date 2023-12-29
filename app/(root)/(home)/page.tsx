@@ -25,9 +25,9 @@ const questions = [
     createdAt: new Date('2023-12-27T13:58:13.958Z')
   },
   {
-    _id: 1,
+    _id: 2,
     title: 'How to center a div?',
-    tags: [{_id: 1, name: 'css'}, {_id: 2, name: 'html'}],
+    tags: [{_id: 3, name: 'css'}, {_id: 4, name: 'html'}],
     author: {
       _id: 4,
       name: 'John Doe',

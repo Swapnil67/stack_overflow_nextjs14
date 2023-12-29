@@ -14,7 +14,7 @@ const hotQuestions = [
     title: "Is it only me or the font is bolder than necessary?",
   },
   {
-    _id: 1,
+    _id: 3,
     title: "Can I get the course for free?",
   },
   {

@@ -5,42 +5,45 @@ import LocalSearchBar from '@/components/shared/search/LocalSearchBar'
 import SelectFilters from '@/components/shared/select/SelectFilters';
 import { Button } from '@/components/ui/button'
 import { HomePageFilters } from '@/constants/filters';
+import { getQuestions } from '@/lib/actions/questions.action';
 import Link from 'next/link';
 import React from 'react'
 
+// const questions = [
+//   {
+//     _id: 1,
+//     title: 'The Lightni ng Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this?',
+//     tags: [{_id: 1, name: 'nextjs'}, {_id: 2, name: 'reactjs'}],
+//     author: {
+//       _id: 4,
+//       name: 'John Doe',
+//       picture: 'john.png'
+//     },
+//     upvotes: 10000,
+//     views: 183903,
+//     answers: [],
+//     createdAt: new Date('2023-12-27T13:58:13.958Z')
+//   },
+//   {
+//     _id: 2,
+//     title: 'How to center a div?',
+//     tags: [{_id: 3, name: 'css'}, {_id: 4, name: 'html'}],
+//     author: {
+//       _id: 4,
+//       name: 'John Doe',
+//       picture: 'john.png'
+//     },
+//     upvotes: 9810,
+//     views: 988777,
+//     answers: [],
+//     createdAt: new Date('2023-12-26T19:12:07.453Z')
+//   }
+// ]
 
-const questions = [
-  {
-    _id: 1,
-    title: 'The Lightni ng Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this?',
-    tags: [{_id: 1, name: 'nextjs'}, {_id: 2, name: 'reactjs'}],
-    author: {
-      _id: 4,
-      name: 'John Doe',
-      picture: 'john.png'
-    },
-    upvotes: 10000,
-    views: 183903,
-    answers: [],
-    createdAt: new Date('2023-12-27T13:58:13.958Z')
-  },
-  {
-    _id: 2,
-    title: 'How to center a div?',
-    tags: [{_id: 3, name: 'css'}, {_id: 4, name: 'html'}],
-    author: {
-      _id: 4,
-      name: 'John Doe',
-      picture: 'john.png'
-    },
-    upvotes: 9810,
-    views: 988777,
-    answers: [],
-    createdAt: new Date('2023-12-26T19:12:07.453Z')
-  }
-]
-
-const Home = () => {
+const Home = async () => {
+  const result = await getQuestions({});
+  // console.log(result?.questions.length);
+  
   return (
     <>
       <div className='flex w-full flex-col-reverse items-center justify-between gap-4 sm:flex-row sm:items-center' >
@@ -74,8 +77,8 @@ const Home = () => {
 
     <div className="mt-10 flex flex-col gap-6">
       {
-        questions.length ?
-        questions.map(question => (
+        result?.questions.length ?
+        result.questions.map(question => (
           <QuestionCard
             key={question._id}
             _id={question._id}

@@ -4,9 +4,10 @@ import { getUserByClerkId } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
+
 const AskQuestion = async () => {
 
-  // const { userId } = auth();
+  // const { userId } = clear();
   const userId = '12345';
 
   if(!userId) redirect('/sign-in');

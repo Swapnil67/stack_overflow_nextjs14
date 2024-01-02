@@ -21,7 +21,7 @@ import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from '../ui/badge';
 import Image from 'next/image';
 import { createQuestion } from '@/lib/actions/questions.action';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 const type:any = 'create';
@@ -29,8 +29,6 @@ const type:any = 'create';
 interface QuestionProps {
   mongoUserId: string
 }
-
-
 
 const Question = ({ mongoUserId }: QuestionProps) => {
 
@@ -60,6 +58,7 @@ const Question = ({ mongoUserId }: QuestionProps) => {
         title: values.title,
         content: values.explanation,
         tags: values.tags,
+        path: pathname,
         author: JSON.parse(mongoUserId)
       });
 

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react'
 import { Badge } from "@/components/ui/badge"
 
-
 interface Props {
   _id: number;
   name: string;
@@ -23,4 +22,4 @@ const RenderTag = ({ _id, name, totalQuestions, showCount }: Props) => {
   )
 }
 
-export default RenderTag
+export default RenderTag;

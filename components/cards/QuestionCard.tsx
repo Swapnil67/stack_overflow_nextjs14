@@ -53,7 +53,7 @@ const QuestionCard = ({
       <div className="mt-6 flex w-full flex-wrap justify-between gap-3">
         <div>
           <Metric
-            imgUrl="/assets/icons/avatar.svg"
+            imgUrl={author.picture}
             alt="users"
             isAuthor
             value={author.name}

@@ -1,12 +1,17 @@
-'use server'
+"use server";
 
 import Question from "../database/question.model";
 import User from "../database/user.model";
-import { connectToDatabase } from "../mongoose"
-import { CreateUserParams, DeleteUserParams, UpdateUserParams } from "./shared.types";
+import { connectToDatabase } from "../mongoose";
+import {
+  CreateUserParams,
+  DeleteUserParams,
+  GetAllUsersParams,
+  UpdateUserParams,
+} from "./shared.types";
 import { revalidatePath } from "next/cache";
 
-export async function getUserByClerkId(params: any)  {
+export async function getUserByClerkId(params: any) {
   try {
     await connectToDatabase();
     const { userId } = params;
@@ -20,7 +25,7 @@ export async function getUserByClerkId(params: any)  {
 export async function createUser(userData: CreateUserParams) {
   try {
     await connectToDatabase();
-    const newUser = await User.create(userData)
+    const newUser = await User.create(userData);
     return newUser;
   } catch (err) {
     console.log("Error createUser ", err);
@@ -32,7 +37,7 @@ export async function updateUser(params: UpdateUserParams) {
     const { clerkId, updateData, path } = params;
     await connectToDatabase();
     await User.findOneAndUpdate({ clerkId }, updateData, {
-      new: true
+      new: true,
     });
     revalidatePath(path);
   } catch (err) {
@@ -42,12 +47,12 @@ export async function updateUser(params: UpdateUserParams) {
 
 export async function deleteUser(params: DeleteUserParams) {
   try {
-    const { clerkId } = params;
     await connectToDatabase();
+    const { clerkId } = params;
 
     const user = await User.findOneAndDelete({ clerkId });
 
-    if(!user){
+    if (!user) {
       throw new Error("User not found");
     }
 
@@ -66,5 +71,19 @@ export async function deleteUser(params: DeleteUserParams) {
     return deleteUser;
   } catch (err) {
     console.log("Error createUser ", err);
+    throw err;
+  }
+}
+
+export async function getAllUsers(params: GetAllUsersParams) {
+  try {
+    await connectToDatabase();
+    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
+    const users = await User.find({}).sort({ createdAt: -1 });
+
+    return { users };
+  } catch (err) {
+    console.log("Error getAllUsers ", err);
+    throw err;
   }
 }

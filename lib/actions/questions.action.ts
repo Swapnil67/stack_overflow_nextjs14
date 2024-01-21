@@ -4,7 +4,7 @@ import console from "console";
 import Question from "../database/question.model";
 import Tag from "../database/tag.model";
 import { connectToDatabase } from "../mongoose";
-import { GetQuestionsParams, CreateQuestionParams } from "./shared.types";
+import { GetQuestionsParams, CreateQuestionParams, GetQuestionByIdParams } from "./shared.types";
 import User from "../database/user.model";
 import { revalidatePath } from "next/cache";
 
@@ -18,9 +18,24 @@ export async function getQuestions(params: GetQuestionsParams) {
 
     return { questions };
   } catch (err) {
-    console.log(err);
+    console.log("getQuestions Error ", err);
+    throw err;
   }
 }
+
+
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    await connectToDatabase();
+    const { questionId } = params;
+    const question = await Question.findById(questionId)
+    return { question };
+  } catch (err) {
+    console.log("getQuestionById Error ", err);
+    throw err;
+  }
+}
+
 
 export async function createQuestion(params: CreateQuestionParams) {
   try {
@@ -61,6 +76,7 @@ export async function createQuestion(params: CreateQuestionParams) {
 
     // console.log("updateResp: ", updateResp);
   } catch (err) {
-    console.log("Error ", err);
+    console.log("createQuestion Error ", err);
+    throw err;
   }
 }
